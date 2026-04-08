@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GRZ Performance</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+body{ background:#0b0b0f; color:#fff; overflow-x:hidden; }
+
+/* FUNDO */
+body::before, body::after{
+  content:"";
+  position:fixed;
+  width:700px;height:700px;
+  filter:blur(120px);
+  opacity:0.3;
+  z-index:-2;
+}
+body::before{background:#247FF1; top:-200px; left:-200px;}
+body::after{background:#FF5A2A; bottom:-200px; right:-200px;}
+
+.bg-grid{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size:40px 40px;
+  z-index:-1;
+}
+
+/* HEADER */
+.header { display:flex; justify-content:space-between; align-items:flex-start; padding:10px 80px; }
+.header a{ margin:33px; }
+.logo{ padding:10px; height:240px; width:auto; }
+
+/* BOTÕES */
+.btn{
+  padding:12px 25px;
+  background:#FF5A2A;
+  border-radius:8px;
+  text-decoration:none;
+  color:#fff;
+  font-weight:bold;
+  transition:all 0.25s ease;
+  box-shadow:0 5px 20px rgba(255,90,42,0.3);
+}
+.btn:hover{
+  background:#ff6a3d;
+  transform:scale(1.08);
+  box-shadow:0 15px 40px rgba(255,90,42,0.7);
+}
+
+/* HERO */
+.hero{ display:flex; align-items:center; justify-content:center; gap:80px; padding:0px 20px; flex-wrap:wrap; }
+.hero-text{ max-width:500px; }
+.headline{
+  font-family:'Orbitron';
+  font-size:58px;
+  text-transform:uppercase;
+  background:linear-gradient(90deg,#247FF1,#FF5A2A);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+.hero p{ margin-top:20px; color:#ccc; }
+
+/* PHONE */
+.phone{
+  width:260px;    /* celular menor */
+  height:560px;   /* celular menor */
+  border-radius:50px;
+  background:#111;
+  position:relative;
+  box-shadow:0 0 0 4px #222, 0 30px 80px rgba(0,0,0,0.8), 0 0 60px rgba(255,90,42,0.3);
+  overflow:hidden;
+  animation:float 4s ease-in-out infinite;
+}
+@keyframes float{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-15px);} }
+
+.screen{
+  position:absolute;
+  top:15px;
+  left:10px;
+  right:10px;
+  bottom:15px;
+  border-radius:30px;
+  background:#0b0b0f;
+  overflow:hidden;
+  padding:0;
+}
+
+.shine{
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:100%;
+  height:100%;
+  background:linear-gradient(120deg, transparent, rgba(255,255,255,0.15), transparent);
+  animation:shineMove 4s infinite;
+}
+@keyframes shineMove{ 0%{left:-100%;} 100%{left:100%;} }
+
+/* CHART */
+.chart{ width:100%; height:100%; }
+
+.line-path{
+  stroke-dasharray:600;
+  stroke-dashoffset:600;
+  animation:drawLine 3s ease infinite;
+}
+
+@keyframes drawLine{
+  0%{stroke-dashoffset:600;}
+  50%{stroke-dashoffset:0;}
+  100%{stroke-dashoffset:-600;}
+}
+
+.area{
+  opacity:0;
+  animation:fadeArea 2s ease infinite;
+}
+
+@keyframes fadeArea{
+  0%{opacity:0;}
+  50%{opacity:1;}
+  100%{opacity:0.3;}
+}
+
+circle{
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.6);}
+  100%{transform:scale(1);}
+}
+
+/* CARDS */
+.cards{ display:flex; flex-wrap:wrap; gap:20px; justify-content:center; }
+.card{
+  flex: 1 1 260px;
+  max-width: 260px;
+  padding:25px;
+  border-radius:12px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.05);
+  backdrop-filter:blur(10px);
+  transition:all 0.3s ease;
+  cursor:pointer;
+  text-align:center;
+}
+.card:hover{
+  background:#FF5A2A;
+  transform:scale(1.12);
+  box-shadow:0 25px 60px rgba(255,90,42,0.6);
+}
+
+/* SECTION */
+.section{ padding:80px 20px; text-align:center; }
+.hidden{ opacity:0; transform:translateY(40px); transition:0.8s; }
+.show{ opacity:1; transform:translateY(0); }
+
+/* "Vamos crescer?" */
+.grow-text{
+  font-family:'Orbitron', sans-serif;
+  font-size:48px;
+  text-transform:uppercase;
+  background: linear-gradient(90deg, #247FF1, #FF5A2A);
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow: 0 5px 15px rgba(255,90,42,0.4);
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+.grow-text:hover{
+  transform: scale(1.1);
+  text-shadow: 0 10px 25px rgba(255,90,42,0.7);
+}
+
+footer{ text-align:center; padding:30px; color:#FF5A2A; margin-top: 20px ; }
+
+</style>
+</head>
+
+<body>
+
+<div class="bg-grid"></div>
+
+<div class="header">
+  <img src="./logo 2.0.png" class="logo">
+  <a class="btn" href="https://www.instagram.com/grzperformance/">nos conheça</a>
+</div>
+
+<div class="hero">
+
+  <div class="hero-text">
+    <h1 class="headline">ESCALANDO NEGÓCIOS NO DIGITAL</h1>
+    <p>A GRZ Performance utiliza estratégias avançadas para gerar crescimento previsível e vendas consistentes.</p>
+  </div>
+
+  <div class="phone">
+    <div class="shine"></div>
+    <div class="screen">
+      <div class="chart">
+        <svg viewBox="0 0 300 200" preserveAspectRatio="none" width="100%" height="100%">
+          <defs>
+            <linearGradient id="line1Grad">
+              <stop offset="0%" stop-color="#FF5A2A"/>
+              <stop offset="100%" stop-color="#FFAA5A"/>
+            </linearGradient>
+            <linearGradient id="line2Grad">
+              <stop offset="0%" stop-color="#247FF1"/>
+              <stop offset="100%" stop-color="#00FFCC"/>
+            </linearGradient>
+            <linearGradient id="area1Grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FF5A2A" stop-opacity="0.4"/>
+              <stop offset="100%" stop-color="#FF5A2A" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="area2Grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#247FF1" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#247FF1" stop-opacity="0"/>
+            </linearGradient>
+            <filter id="glow"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+
+          <!-- Linha 1 -->
+          <path d="M0,200 L30,180 L60,150 L90,120 L120,100 L150,70 L180,60 L210,50 L240,40 L270,35 L300,30 L300,200 L0,200 Z"
+                fill="url(#area1Grad)" class="area"/>
+          <path d="M0,200 L30,180 L60,150 L90,120 L120,100 L150,70 L180,60 L210,50 L240,40 L270,35 L300,30"
+                stroke="url(#line1Grad)" stroke-width="3" fill="none" filter="url(#glow)" class="line-path"/>
+
+          <!-- Linha 2 -->
+          <path d="M0,190 L30,170 L60,160 L90,130 L120,110 L150,90 L180,75 L210,65 L240,55 L270,50 L300,45 L300,200 L0,200 Z"
+                fill="url(#area2Grad)" class="area"/>
+          <path d="M0,190 L30,170 L60,160 L90,130 L120,110 L150,90 L180,75 L210,65 L240,55 L270,50 L300,45"
+                stroke="url(#line2Grad)" stroke-width="3" fill="none" filter="url(#glow)" class="line-path"/>
+
+          <!-- Pontos Linha 1 -->
+          <circle cx="30" cy="180" r="3" fill="#FF5A2A"/>
+          <circle cx="60" cy="150" r="3" fill="#FF5A2A"/>
+          <circle cx="90" cy="120" r="3" fill="#FF5A2A"/>
+          <circle cx="120" cy="100" r="3" fill="#FF5A2A"/>
+          <circle cx="150" cy="70" r="3" fill="#FF5A2A"/>
+          <circle cx="180" cy="60" r="3" fill="#FF5A2A"/>
+          <circle cx="210" cy="50" r="3" fill="#FF5A2A"/>
+          <circle cx="240" cy="40" r="3" fill="#FF5A2A"/>
+          <circle cx="270" cy="35" r="3" fill="#FF5A2A"/>
+          <circle cx="300" cy="30" r="3" fill="#FF5A2A"/>
+
+          <!-- Pontos Linha 2 -->
+          <circle cx="30" cy="170" r="3" fill="#247FF1"/>
+          <circle cx="60" cy="160" r="3" fill="#247FF1"/>
+          <circle cx="90" cy="130" r="3" fill="#247FF1"/>
+          <circle cx="120" cy="110" r="3" fill="#247FF1"/>
+          <circle cx="150" cy="90" r="3" fill="#247FF1"/>
+          <circle cx="180" cy="75" r="3" fill="#247FF1"/>
+          <circle cx="210" cy="65" r="3" fill="#247FF1"/>
+          <circle cx="240" cy="55" r="3" fill="#247FF1"/>
+          <circle cx="270" cy="50" r="3" fill="#247FF1"/>
+          <circle cx="300" cy="45" r="3" fill="#247FF1"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="section hidden">
+  <h1>Resultados reais</h1>
+  <h2>+100 clientes | +300% crescimento | +100k gerados</h2>
+</div>
+
+<div class="section hidden">
+  <h2>Serviços</h2>
+  <br>
+  <div class="cards">
+    <div class="card">Tráfego Pago</div>
+    <div class="card">Gestão de Anúncios</div>
+    <div class="card">Criativos</div>
+    <div class="card">Funis Inteligentes</div>
+    <div class="card">Landing Pages</div>
+    <div class="card">Copywriting</div>
+  </div>
+</div>
+
+<div class="section hidden">
+  <h2 class="grow-text">Vamos crescer?</h2>
+  <br><br>
+  <a class="btn" href="#">WhatsApp</a>
+</div>
+
+<footer>© GRZ Performance</footer>
+
+<script>
+const obs = new IntersectionObserver((e)=>{
+  e.forEach(el=>{
+    if(el.isIntersecting){ el.target.classList.add("show"); }
+  });
+});
+document.querySelectorAll(".hidden").forEach(el=>obs.observe(el));
+</script>
+
+</body>
+</html>
